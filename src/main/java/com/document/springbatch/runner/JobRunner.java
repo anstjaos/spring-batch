@@ -12,19 +12,19 @@ import org.springframework.stereotype.Component;
 public class JobRunner implements ApplicationRunner {
 
     private final JobLauncher jobLauncher;
-    private final Job simpleJob;
+    private final Job batchJob;
 
-    public JobRunner(JobLauncher jobLauncher, Job simpleJob) {
+    public JobRunner(JobLauncher jobLauncher, Job batchJob) {
         this.jobLauncher = jobLauncher;
-        this.simpleJob = simpleJob;
+        this.batchJob = batchJob;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         JobParameters jobParameters = new JobParametersBuilder()
-                .addString("name", "user2")
+                .addString("date", "2023/03/07")
                 .toJobParameters();
 
-        jobLauncher.run(simpleJob, jobParameters);
+        jobLauncher.run(batchJob, jobParameters);
     }
 }
