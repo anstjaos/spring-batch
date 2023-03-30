@@ -1,5 +1,6 @@
 package com.document.springbatch.configurations;
 
+import com.document.springbatch.validator.CustomJobParameterValidator;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
@@ -15,11 +16,13 @@ import java.util.Map;
 
 @Configuration
 public class JobParameterConfiguration {
+
     @Bean
     public Job jobParameter(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new JobBuilder("jobParameter", jobRepository)
                 .start(jobParameterStep1(jobRepository, transactionManager))
                 .next(jobParameterStep2(jobRepository, transactionManager))
+                .validator(new CustomJobParameterValidator())
                 .build();
     }
 
